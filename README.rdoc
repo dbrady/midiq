@@ -17,13 +17,13 @@ with audio") queueing behaviors.
 
 = Running
 
-# Start the beanstalk server: beanstalkd
-# Have clients connect to it: ruby work_queue_client.rb <server_ip_address>
-# Send note messages to the clients!
-## ruby work_queue_server.rb <server_ip_address> 1    # send a single note
-## ruby work_queue_server.rb <server_ip_address> 100  # send 100 notes
-## ruby drum_server.rb # ten notes per second--you can hear the net lag
-## ruby mary_server.rb # plays a song
+* Start the beanstalk server: beanstalkd
+* Have clients connect to it: ruby work_queue_client.rb <server_ip_address>
+* Send note messages to the clients!
+** ruby work_queue_server.rb <server_ip_address> 1    # send a single note
+** ruby work_queue_server.rb <server_ip_address> 100  # send 100 notes
+** ruby drum_server.rb # ten notes per second--you can hear the net lag
+** ruby mary_server.rb # plays a song
 
 == Messages
 
