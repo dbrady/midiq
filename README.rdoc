@@ -1,0 +1,44 @@
+= MidiQ
+
+Stupid message queueing demos using MIDI to "audistrate" ("illustrate
+with audio") queueing behaviors.
+
+How it works:
+
+Clients set up a midi player, then connect to the queue server and
+listen for note messages.
+
+
+= Work Queue Client
+
+== Setting up MIDI
+
+Pretty simple: since we're all on Macs[1]:
+
+* gem install midiator
+* gem install beanstalk-client
+* load the dls_synth MIDI driver
+* configure track 10 to be a TR-808 drum kit
+* connect to the queue
+
+[1] I realize that this is on github, which is on the internet, which
+is not necessarily composed entirely of Mac users. But *you* need
+to realize that I wrote this for a demo given at my work, which
+*is* such an homogenous (and clearly enlightened) society.
+
+== Handling Queue Messages
+
+There are basically only 2 messages, sync and async. Sync messages
+describe a note to be play synchronously. No other notes can be played
+until this note finishes. Asynch messages must be played, and then any
+messages that appear before the message is finished should be played
+next.
+
+Sync messages will help us audistrate work queues, where a worker does
+not take a new job until it has finished the one it is on.
+
+== Messages
+
+ Q                  # tell client to quit 
+ S 39 1.0 10 127    # sync <note> <duration> <channel> <volume>
+ M 60 1.0 1 127     # async <note> <duration> <channel> <volume>
