@@ -10,8 +10,8 @@ bs = Beanstalk::Pool.new ["#{host}:11300"]
 
 chord = [0, 2, 5]
 
-60.times do
-  n = (rand(5)+4)*12
+10.times do
+  n = (rand(5)+4)*12 + chord[rand(3)]
   dur = 0.15 + rand() / 6
   bs.put "S #{n} #{dur} 1 127"
 end
