@@ -3,6 +3,12 @@
 Stupid message queueing demos using MIDI to "audistrate" ("illustrate
 with audio") queueing behaviors.
 
+The demo is basically this: everybody in the room connects to the work
+queue, and the jobs are single notes to be played. You can play a song
+by skipping randomly around the room, one note coming out of a
+different laptop, or you can jam a bunch of work notes through the
+system at once so people can "hear" what a work queue "sounds" like.
+
 = Preparation
 
 == Client
@@ -20,10 +26,10 @@ with audio") queueing behaviors.
 * Start the beanstalk server: beanstalkd
 * Have clients connect to it: ruby work_queue_client.rb <server_ip_address>
 * Send note messages to the clients!
-** ruby work_queue_server.rb <server_ip_address> 1    # send a single note
-** ruby work_queue_server.rb <server_ip_address> 100  # send 100 notes
-** ruby drum_server.rb # ten notes per second--you can hear the net lag
-** ruby mary_server.rb # plays a song
+* ruby work_queue_server.rb <server_ip_address> 1    # send a single note
+* ruby work_queue_server.rb <server_ip_address> 100  # send 100 notes
+* ruby drum_server.rb # ten notes per second--you can hear the net lag
+* ruby mary_server.rb # plays a song
 
 == Messages
 
@@ -41,3 +47,22 @@ with audio") queueing behaviors.
 * Over wireless, there ends up being a delay of up to a tenth of a
   second. This means it's basically crap for music, but YMMV and it's
   still kind of a cool demo anyway.
+
+== My Demo Notes
+
+ # Show note pages
+ 
+ # A server puts a job on the queue; a worker handles it.
+ ruby work_queue_server.rb localhost 1
+ ruby work_queue_server.rb localhost 1
+ ruby work_queue_server.rb localhost 1
+ 
+ # Jobs go through the queue very fast
+ ruby drum_server.rb
+ 
+ # Which means a limited synchrony can be achieved
+ ruby mary_server.rb
+  
+ # But the real power is when a worker crowd handles the jobs together
+ ruby work_queue_server.rb localhost 100
+ 
